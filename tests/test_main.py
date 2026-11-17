@@ -13,7 +13,7 @@ def test_health():
 
 def test_add():
     response = client.get("/add/2/3")
-    assert response.json() == {"result": 6}
+    assert response.json() == {"result": 5}
 
 
 def test_divide_by_zero():

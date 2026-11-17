@@ -1,0 +1,26 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run: pip install -r requirements.txt
+      - run: pytest -v
+
+  build:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t ci-demo .
+
+workflows:
+  test-and-build:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
